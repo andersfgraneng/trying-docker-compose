@@ -1,0 +1,24 @@
+language: generic
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t graneng/trying-docker-compose-react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true graneng/trying-docker-compose-react-test npm test
+
+after_success:
+  - docker build -t graneng/trying-docker-compose-react ./client
+  - docker build -t graneng/trying-docker-compose-nginx ./client
+  - docker build -t graneng/trying-docker-compose-server ./server
+  - docker build -t graneng/trying-docker-compose-worker ./worker
+
+  # docker login
+  - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # push docker images
+  - docker push graneng/trying-docker-compose-react
+  - docker push graneng/trying-docker-compose-nginx
+  - docker push graneng/trying-docker-compose-server
+  - docker push graneng/trying-docker-compose-worker
