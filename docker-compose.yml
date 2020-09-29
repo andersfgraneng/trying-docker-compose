@@ -49,3 +49,8 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+  couscous:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./couscous

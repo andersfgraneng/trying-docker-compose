@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Couscous Rain</title>
+  </head>
+
+  <body>
+    <canvas id="app" />
+
+    <style>
+      * {
+        margin: 0;
+      }
+    </style>
+
+    <script>
+      const canvas = document.getElementById("app");
+      const ctx = canvas.getContext("2d");
+
+      const { W = innerWidth, H = innerHeight } = window;
+
+      canvas.width = W;
+      canvas.height = H;
+
+      // Couscous particles
+      const maxCouscouae = 256;
+      const couscouae = [];
+
+      for (let i = 0; i < maxCouscouae; i++) {
+        couscouae.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 4 + 1,
+          d: Math.random() * maxCouscouae,
+        });
+      }
+
+      let angle = 0;
+      const draw = () => {
+        ctx.clearRect(0, 0, W, H);
+
+        // Background
+        ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${
+          Math.random() * 255
+        })`;
+        ctx.fillRect(0, 0, W, H);
+
+        // Fill couscouae
+        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.beginPath();
+        for (let i = 0; i < maxCouscouae; i++) {
+          const c = couscouae[i];
+          ctx.moveTo(c.x, c.y);
+          ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2, true);
+        }
+        ctx.fill();
+
+        // Text
+        ctx.font = "50px Helvetica";
+        ctx.fillStyle = "rgb(255, 255, 255)";
+        ctx.fillText("couscous", W / 2 - 150, H / 2);
+
+        ctx.font = "12px Helvetica";
+        ctx.fillText(
+          "please report bugs github.com/andersfgraneng/trying-docker-compose",
+          W / 2 - 150,
+          H / 2 + 50
+        );
+
+        update();
+
+        window.requestAnimationFrame(draw);
+      };
+
+      const update = () => {
+        angle += 0.01;
+
+        for (var i = 0; i < maxCouscouae; i++) {
+          const c = couscouae[i];
+
+          c.y += Math.cos(angle + c.d) + 1 + c.r / 2;
+          c.x += Math.sin(angle) * 2;
+
+          if (c.x > W + 5 || c.x < -5 || c.y > H) {
+            if (i % 3 > 0) {
+              couscouae[i] = { x: Math.random() * W, y: -10, r: c.r, d: c.d };
+            } else {
+              if (Math.sin(angle) > 0) {
+                couscouae[i] = { x: -5, y: Math.random() * H, r: c.r, d: c.d };
+              } else {
+                couscouae[i] = {
+                  x: W + 5,
+                  y: Math.random() * H,
+                  r: c.r,
+                  d: c.d,
+                };
+              }
+            }
+          }
+        }
+      };
+
+      window.requestAnimationFrame(draw);
+    </script>
+  </body>
+</html>

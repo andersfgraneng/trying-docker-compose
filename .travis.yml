@@ -13,6 +13,7 @@ after_success:
   - docker build -t graneng/trying-docker-compose-nginx ./client
   - docker build -t graneng/trying-docker-compose-server ./server
   - docker build -t graneng/trying-docker-compose-worker ./worker
+  - docker build -t graneng/trying-docker-compose-couscous ./couscous
 
   # docker login
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
@@ -22,3 +23,4 @@ after_success:
   - docker push graneng/trying-docker-compose-nginx
   - docker push graneng/trying-docker-compose-server
   - docker push graneng/trying-docker-compose-worker
+  - docker push graneng/trying-docker-compose-couscous
