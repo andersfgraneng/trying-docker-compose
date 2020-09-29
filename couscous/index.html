@@ -14,8 +14,8 @@
     </style>
 
     <script>
-      const canvas = document.getElementById("app");
-      const ctx = canvas.getContext("2d");
+      const canvas = document.getElementById('app');
+      const ctx = canvas.getContext('2d');
 
       const { W = innerWidth, H = innerHeight } = window;
 
@@ -46,7 +46,7 @@
         ctx.fillRect(0, 0, W, H);
 
         // Fill couscouae
-        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
         ctx.beginPath();
         for (let i = 0; i < maxCouscouae; i++) {
           const c = couscouae[i];
@@ -56,13 +56,13 @@
         ctx.fill();
 
         // Text
-        ctx.font = "50px Helvetica";
-        ctx.fillStyle = "rgb(255, 255, 255)";
-        ctx.fillText("couscous", W / 2 - 150, H / 2);
+        ctx.font = '50px Helvetica';
+        ctx.fillStyle = 'rgb(255, 255, 255)';
+        ctx.fillText('couscous', W / 2 - 150, H / 2);
 
-        ctx.font = "12px Helvetica";
+        ctx.font = '12px Helvetica';
         ctx.fillText(
-          "please report bugs github.com/andersfgraneng/trying-docker-compose",
+          "please report bugs, can't have bugs in couscous github.com/andersfgraneng/trying-docker-compose",
           W / 2 - 150,
           H / 2 + 50
         );
